@@ -187,11 +187,11 @@
     line-height: 1.4;
     color: #333; }
 
-  /* === FOOTER ==== */
+  /* FOOTER */
   .footer{ border-top:1px solid var(--color-border); padding-block:24px; color:var(--color-muted); }
   .footer-inner{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
   
-  /* ==== UTILITIES ==== */
+  /* UTILITIES */
 
   .brand-with-back {
     display: flex;
@@ -216,7 +216,7 @@
     transform: translateX(-4px);
   }
   
-  /* ===== Project navigation footer ===== */
+  /* Project navigation footer */
 .project-nav {
   border-top: 1px solid var(--color-border);
   padding-block: 48px;
@@ -266,7 +266,7 @@
   z-index: 10;   
 }
 
-/* --- popup image --- */
+/* popup image */
 .popup {
   display: none;             
   position: fixed;
@@ -305,7 +305,7 @@
   max-width: 350px;    
 }
 
-/* --- COMPACT CARDS --- */
+/* COMPACT CARDS */
 .project-card--compact {
   min-width: 260px;
   max-width: 350px;
@@ -434,11 +434,9 @@
 .project-card--compact .project-link:hover .project-title,
 .project-card--compact .project-link:focus-visible .project-title { font-size: .8rem; }
 
-/* Make sure hotspots sit on top */
 .hotspot {
   position: absolute;
   z-index: 3;
-  background-color: rgba(255, 0, 0, 0.3);
 }
 .overlay-video {
   position: absolute;
