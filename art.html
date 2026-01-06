@@ -1,0 +1,169 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Art Gallery — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="visually-hidden" href="#main">Skip to content</a>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="Home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>TamDesigns</span>
+      </a>
+
+      <input type="checkbox" id="nav-toggle" />
+      <label class="nav-btn" for="nav-toggle" aria-label="Toggle menu"><span class="bars"></span></label>
+
+      <nav aria-label="Primary">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="art.html">Art Gallery</a> </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="gallery-controls" aria-label="Filter artwork by medium">
+    <button class="filter-btn" type="button" data-filter="paintings" aria-pressed="false">
+      Paintings <span class="chev" aria-hidden="true">▾</span>
+    </button>
+  
+    <button class="filter-btn" type="button" data-filter="fabric" aria-pressed="false">
+      Fabric Paintings <span class="chev" aria-hidden="true">▾</span>
+    </button>
+  
+    <button class="filter-btn" type="button" data-filter="illustration" aria-pressed="false">
+      Digital Illustration <span class="chev" aria-hidden="true">▾</span>
+    </button>
+  
+    <button class="filter-btn" type="button" data-filter="clay" aria-pressed="false">
+      Model Making <span class="chev" aria-hidden="true">▾</span>
+    </button>
+  
+    <button class="clear-btn" type="button" id="clearFilter" hidden>
+      Clear filter
+    </button>
+  </div>
+  
+  <p class="filter-status" id="filterStatus" aria-live="polite"></p>
+  
+
+  <div class="gallery-view" id="galleryView">
+    <img
+      id="galleryImg"
+      src="All.png"
+      alt="Art gallery masonry grid showing all work"
+    />
+  </div>
+
+  
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> TamDesigns</p>
+      <ul class="nav">
+        <li><a href="https://www.linkedin.com/in/tamanna-shirol/" target="_blank">LinkedIn</a></li>
+        <li><a href="mailto:tamanna.shirol@gmail.com?subject=Let's%20Connect!"
+          target="_blank">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+<script>
+  const buttons = document.querySelectorAll(".filter-btn");
+  const clearBtn = document.getElementById("clearFilter");
+  const statusEl = document.getElementById("filterStatus");
+  const imgEl = document.getElementById("galleryImg");
+
+
+  const grids = {
+    all: {
+      src: "All.png",
+      alt: "Art gallery masonry grid showing all work"
+    },
+    paintings: {
+      src: "painting.png",
+      alt: "Art gallery masonry grid filtered to paintings"
+    },
+    fabric: {
+      src: "fabric.png",
+      alt: "Art gallery masonry grid filtered to fabric paintings"
+    },
+    illustration: {
+      src: "digital.png",
+      alt: "Art gallery masonry grid filtered to digita; illustration"
+    },
+    clay: {
+      src: "model.png",
+      alt: "Art gallery masonry grid filtered to clay and model making"
+    }
+  };
+
+  let activeFilter = "all";
+
+  function labelFor(filter) {
+    const map = {
+      all: "All work",
+      paintings: "Paintings",
+      fabric: "Fabric Paintings",
+      illustration: "Digital Illustration",
+      clay: "Model Making"
+    };
+    return map[filter] || filter;
+  }
+
+  function setActive(filter) {
+    activeFilter = filter;
+
+
+    buttons.forEach(btn => {
+      const isActive = filter !== "all" && btn.dataset.filter === filter;
+      btn.classList.toggle("is-active", isActive);
+      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+
+
+    clearBtn.hidden = (filter === "all");
+    statusEl.textContent = `Showing: ${labelFor(filter)}`;
+
+
+    imgEl.classList.add("is-fading");
+    setTimeout(() => {
+      imgEl.src = grids[filter].src;
+      imgEl.alt = grids[filter].alt;
+
+ 
+      imgEl.onload = () => {
+        imgEl.classList.remove("is-fading");
+      };
+    }, 50);
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter;
+      setActive(activeFilter === filter ? "all" : filter);
+    });
+  });
+
+  clearBtn.addEventListener("click", () => setActive("all"));
+
+
+  setActive("all");
+</script>
+
+
+</body>
+</html>
